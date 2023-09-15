@@ -35,7 +35,7 @@ env:
 
 jobs:
   owrt_core:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout Projects
         uses: actions/checkout@main
@@ -43,7 +43,7 @@ jobs:
       - name: Free Disk Space
         uses: jlumbroso/free-disk-space@main
         with:
-          tool-cache: false
+          tool-cache: true
           dotnet: true
           android: true
           haskell: true
