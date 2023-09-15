@@ -3,8 +3,8 @@ name: X64-Lede
 
 on:
   #自动编译：每天早上4点
-  schedule:
-    - cron: 0 20 * * *
+  #schedule:
+  #  - cron: 0 20 * * *
   #手动编译
   workflow_dispatch:
 
@@ -20,12 +20,12 @@ jobs:
       #编译平台，X64包含X86
       OWRT_TARGET: X64
       #默认主题
-      OWRT_THEME: design
+      OWRT_THEME: argon
       #默认主机名
-      OWRT_NAME: OWRT
+      OWRT_NAME: OpenWrt
       #默认密码，仅作展示，请勿乱改
       OWRT_PW: password
       #默认地址
-      OWRT_IP: 192.168.10.1
+      OWRT_IP: 10.0.0.77
       #默认源码
       OWRT_URL: https://github.com/coolsnowwolf/lede.git
