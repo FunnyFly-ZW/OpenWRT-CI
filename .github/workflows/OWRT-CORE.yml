@@ -43,7 +43,7 @@ jobs:
       - name: Free Disk Space
         uses: jlumbroso/free-disk-space@main
         with:
-          tool-cache: false
+          tool-cache: true
           dotnet: true
           android: true
           haskell: true
