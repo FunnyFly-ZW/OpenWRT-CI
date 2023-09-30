@@ -12,9 +12,9 @@ git clone --depth=1 --single-branch --branch $(echo $OWRT_URL | grep -iq "lede" 
 #git clone --depth=1 --single-branch https://github.com/linkease/nas-packages-luci.git
 #Openclash
 git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/OpenClash.git
-#Passwall
-git clone --depth=1 --single-branch --branch "main" https://github.com/xiaorouji/openwrt-passwall.git ./pw_luci
-git clone --depth=1 --single-branch --branch "main" https://github.com/xiaorouji/openwrt-passwall-packages.git ./pw_packages
+#Pass Wall
+git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
+git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall-packages.git
 
 #预置Openclash内核和GEO数据
 export CORE_VER=https://raw.githubusercontent.com/vernesong/OpenClash/core/dev/core_version
