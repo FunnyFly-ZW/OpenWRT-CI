@@ -2,9 +2,11 @@
 name: OWRT-TC
 
 on:
-  #公用核心标识
   workflow_call:
     inputs:
+      OWRT_BRANCH:
+        required: true
+        type: string
       OWRT_TARGET:
         required: true
         type: string
@@ -26,6 +28,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  OWRT_BRANCH: ${{inputs.OWRT_BRANCH}}
   OWRT_TARGET: ${{inputs.OWRT_TARGET}}
   OWRT_THEME: ${{inputs.OWRT_THEME}}
   OWRT_NAME: ${{inputs.OWRT_NAME}}
@@ -70,14 +73,9 @@ jobs:
           echo "OWRT_PW=$OWRT_PW" >> $GITHUB_ENV
           echo "OWRT_IP=$OWRT_IP" >> $GITHUB_ENV
 
-      - name: Check Files
-        run: |
-          dos2unix $(find ./ -maxdepth 2 -type f -iregex ".*\(txt\|sh\)$")
-          chmod +x $(find ./ -maxdepth 2 -type f -iname "*.sh")
-
       - name: Clone OWRT Code
         run: |
-          git clone --depth=1 --single-branch $OWRT_URL ./owrt
+          git clone --depth=1 --single-branch --branch "$OWRT_BRANCH" $OWRT_URL ./owrt
 
       - name: Update Feeds
         run: |
@@ -85,6 +83,10 @@ jobs:
 
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+
+      - name: Check Scripts
+        run: |
+          find ./ -maxdepth 2 -type f -iregex ".*\(txt\|sh\)$" -exec dos2unix {} \; -exec chmod +x {} \;
 
       - name: Custom Scripts
         run: |
@@ -101,22 +103,34 @@ jobs:
           cd ./owrt
 
           rm -rf ./tmp* ./.config*
+
           cat $GITHUB_WORKSPACE/Config/$OWRT_TARGET.txt $GITHUB_WORKSPACE/Config/General.txt >> .config
 
-          $GITHUB_WORKSPACE/Scripts/Extras.sh
+          echo "CONFIG_PACKAGE_luci-theme-$OWRT_THEME=y" >> .config
+          echo "CONFIG_PACKAGE_luci-app-$OWRT_THEME-config=y" >> .config
+
+          if [[ $OWRT_URL != *"lede"* ]] ; then
+            echo "CONFIG_PACKAGE_luci=y" >> .config
+            echo "CONFIG_LUCI_LANG_zh_Hans=y" >> .config
+          fi
 
           make defconfig
 
-      - name: Package Firmware
+      - name: Space Usage
         run: |
-          cd ./owrt && mkdir ./upload
-          cp -rf ./.config ./upload/Config_"$OWRT_TARGET"_"$OWRT_SOURCE"_"$OWRT_DATE".txt
+          cd ./owrt
 
           echo "======================="
           df -h
           echo "======================="
           du -h --max-depth=1
           echo "======================="
+
+      - name: Package Firmware
+        run: |
+          cd ./owrt && mkdir ./upload
+
+          cp -rf ./.config ./upload/Config_"$OWRT_TARGET"_"$OWRT_SOURCE"_"$OWRT_DATE".txt
 
       - name: Release Firmware
         uses: softprops/action-gh-release@master

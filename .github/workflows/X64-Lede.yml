@@ -29,3 +29,5 @@ jobs:
       OWRT_IP: 10.0.0.77
       #默认源码
       OWRT_URL: https://github.com/coolsnowwolf/lede.git
+      #默认分支
+      OWRT_BRANCH: master
