@@ -14,6 +14,17 @@ git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwal
 git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/OpenClash.git
 #Hello World
 git clone --depth=1 --single-branch --branch "main" https://github.com/fw876/helloworld.git
+
+#更新lean内置的MosDNS版本
+git clone --depth=1 --single-branch https://github.com/sbwml/luci-app-mosdns.git
+git clone --depth=1 --single-branch https://github.com/sbwml/v2ray-geodata.git
+
+#更新lean的内置的smartdns版本
+sed -i 's/1.2023.42/1.2023.43/g' feeds/packages/net/smartdns/Makefile
+sed -i 's/ed102cda03c56e9c63040d33d4a391b56491493e/60a3719ec739be2cc1e11724ac049b09a75059cb/g' feeds/packages/net/smartdns/Makefile
+sed -i 's/^PKG_MIRROR_HASH/#&/' feeds/packages/net/smartdns/Makefile
+git clone  --depth=1 --single-branch --branch "lede" https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+
 #Home Proxy
 if [[ $OWRT_URL == *"immortalwrt"* ]] ; then
   git clone --depth=1 --single-branch --branch "dev" https://github.com/immortalwrt/homebridger.git
