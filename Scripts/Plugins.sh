@@ -67,7 +67,3 @@ curl -sfL -o ./dev.tar.gz "$CORE_DEV"-"$CORE_TYPE".tar.gz
 tar -zxf ./dev.tar.gz
 
 chmod +x ./clash* ; rm -rf ./*.gz
-
-#更新软件源并安装
-./scripts/feeds update -a
-./scripts/feeds install -a
