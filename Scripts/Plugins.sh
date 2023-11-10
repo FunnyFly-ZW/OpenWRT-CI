@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#删除要替换的插件
+rm -rf $(find ./feeds/ -type d -iregex ".*\(argon\|design\|helloworld\|homebridger\|homeproxy\|openclash\|passwall\|mosdns\|smartdns\|netdata\).*")
+
 #Design Theme
 git clone --depth=1 --single-branch --branch $(echo $OWRT_URL | grep -iq "lede" && echo "main" || echo "js") https://github.com/gngpp/luci-theme-design.git
 git clone --depth=1 --single-branch https://github.com/gngpp/luci-app-design-config.git
@@ -20,10 +23,11 @@ git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/
 git clone --depth=1 --single-branch https://github.com/sbwml/luci-app-mosdns.git
 git clone --depth=1 --single-branch https://github.com/sbwml/v2ray-geodata.git
 #SmartDNS
-#sed -i 's/1.2023.42/1.2023.43/g' feeds/packages/net/smartdns/Makefile
-#sed -i 's/ed102cda03c56e9c63040d33d4a391b56491493e/60a3719ec739be2cc1e11724ac049b09a75059cb/g' feeds/packages/net/smartdns/Makefile
-#sed -i 's/^PKG_MIRROR_HASH/#&/' feeds/packages/net/smartdns/Makefile
-git clone  --depth=1 --single-branch --branch "lede" https://github.com/pymumu/luci-app-smartdns.git
+git clone --depth=1 --single-branch --branch "lede" https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+git clone --depth=1 --single-branch https://github.com/pymumu/openwrt-smartdns package/smartdns
+
+#Netdata
+git clone --depth=1 --single-branch https://github.com/Jason6111/luci-app-netdata package/luci-app-netdata
 
 #Home Proxy
 if [[ $OWRT_URL == *"immortalwrt"* ]] ; then
@@ -63,3 +67,7 @@ curl -sfL -o ./dev.tar.gz "$CORE_DEV"-"$CORE_TYPE".tar.gz
 tar -zxf ./dev.tar.gz
 
 chmod +x ./clash* ; rm -rf ./*.gz
+
+#更新软件源并安装
+./scripts/feeds update -a
+./scripts/feeds install -a
