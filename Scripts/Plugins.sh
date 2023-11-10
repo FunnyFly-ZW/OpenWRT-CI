@@ -6,24 +6,24 @@ git clone --depth=1 --single-branch https://github.com/gngpp/luci-app-design-con
 #Argon Theme
 git clone --depth=1 --single-branch --branch $(echo $OWRT_URL | grep -iq "lede" && echo "18.06" || echo "master") https://github.com/jerrykuku/luci-theme-argon.git
 git clone --depth=1 --single-branch --branch $(echo $OWRT_URL | grep -iq "lede" && echo "18.06" || echo "master") https://github.com/jerrykuku/luci-app-argon-config.git
-#Pass Wall
+
+#PassWall
 git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall.git
 git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall2.git
 git clone --depth=1 --single-branch https://github.com/xiaorouji/openwrt-passwall-packages.git
-#Open Clash
+#OpenClash
 git clone --depth=1 --single-branch --branch "dev" https://github.com/vernesong/OpenClash.git
-#Hello World
-git clone --depth=1 --single-branch --branch "main" https://github.com/fw876/helloworld.git
+#HelloWorld
+#git clone --depth=1 --single-branch --branch "main" https://github.com/fw876/helloworld.git
 
-#更新lean内置的MosDNS版本
+#MosDNS
 git clone --depth=1 --single-branch https://github.com/sbwml/luci-app-mosdns.git
 git clone --depth=1 --single-branch https://github.com/sbwml/v2ray-geodata.git
-
-#更新lean的内置的smartdns版本
-sed -i 's/1.2023.42/1.2023.43/g' feeds/packages/net/smartdns/Makefile
-sed -i 's/ed102cda03c56e9c63040d33d4a391b56491493e/60a3719ec739be2cc1e11724ac049b09a75059cb/g' feeds/packages/net/smartdns/Makefile
-sed -i 's/^PKG_MIRROR_HASH/#&/' feeds/packages/net/smartdns/Makefile
-git clone  --depth=1 --single-branch --branch "lede" https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+#SmartDNS
+#sed -i 's/1.2023.42/1.2023.43/g' feeds/packages/net/smartdns/Makefile
+#sed -i 's/ed102cda03c56e9c63040d33d4a391b56491493e/60a3719ec739be2cc1e11724ac049b09a75059cb/g' feeds/packages/net/smartdns/Makefile
+#sed -i 's/^PKG_MIRROR_HASH/#&/' feeds/packages/net/smartdns/Makefile
+git clone  --depth=1 --single-branch --branch "lede" https://github.com/pymumu/luci-app-smartdns.git
 
 #Home Proxy
 if [[ $OWRT_URL == *"immortalwrt"* ]] ; then
