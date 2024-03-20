@@ -234,3 +234,4 @@ jobs:
             设备：${{env.WRT_TYPE}}
             密码：${{env.WRT_PW}}
             地址：${{env.WRT_IP}}
+            分支：test
