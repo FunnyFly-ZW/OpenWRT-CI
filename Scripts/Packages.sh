@@ -39,18 +39,18 @@ if [[ $WRT_URL == *"immortalwrt"* ]]; then
 fi
 
 #MosDNS(sbwml)
-#find ../feeds/ | grep Makefile | grep mosdns | xargs rm -f
-#find ../feeds/ | grep Makefile | grep v2dat | xargs rm -f
-#find ../feeds/ | grep Makefile | grep v2ray-geodata | xargs rm -f
-#git clone --depth=1 --single-branch --branch "v5" https://github.com/sbwml/luci-app-mosdns.git
-#git clone --depth=1 --single-branch https://github.com/sbwml/v2ray-geodata.git
+find ../feeds/ | grep Makefile | grep mosdns | xargs rm -f
+find ../feeds/ | grep Makefile | grep v2dat | xargs rm -f
+find ../feeds/ | grep Makefile | grep v2ray-geodata | xargs rm -f
+git clone --depth=1 --single-branch --branch "v5" https://github.com/sbwml/luci-app-mosdns.git
+git clone --depth=1 --single-branch https://github.com/sbwml/v2ray-geodata.git
 #UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5"
 #UPDATE_PACKAGE "v2ray-geodata" "sbwml/v2ray-geodata" "master"
 
 #MosDNS(QiuSimons)
-find ../feeds/ | grep Makefile | grep mosdns | xargs rm -f
-find ../feeds/ | grep Makefile | grep v2ray-geodata | xargs rm -f
-git clone --depth=1 --single-branch https://github.com/QiuSimons/openwrt-mos.git
+#find ../feeds/ | grep Makefile | grep mosdns | xargs rm -f
+#find ../feeds/ | grep Makefile | grep v2ray-geodata | xargs rm -f
+#git clone --depth=1 --single-branch https://github.com/QiuSimons/openwrt-mos.git
 #UPDATE_PACKAGE "mosdns" "QiuSimons/openwrt-mos" "master"
 
 #SmartDNS
