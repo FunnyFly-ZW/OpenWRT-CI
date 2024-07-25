@@ -23,14 +23,47 @@ UPDATE_PACKAGE() {
 #UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
 UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "$([[ $WRT_REPO == *"lede"* ]] && echo "18.06" || echo "master")"
 UPDATE_PACKAGE "design" "0x676e67/luci-theme-design" "$([[ $WRT_REPO == *"lede"* ]] && echo "main" || echo "js")"
-UPDATE_PACKAGE "kucat" "sirpdboy/luci-theme-kucat" "$([[ $WRT_REPO == *"lede"* ]] && echo "main" || echo "js")"
+#UPDATE_PACKAGE "kucat" "sirpdboy/luci-theme-kucat" "$([[ $WRT_REPO == *"lede"* ]] && echo "main" || echo "js")"
 
+#科学上网
 UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main"
+UPDATE_PACKAGE "passwall-packages" "xiaorouji/openwrt-passwall-packages" "main"
 UPDATE_PACKAGE "ssr-plus" "fw876/helloworld" "master"
 
-UPDATE_PACKAGE "advancedplus" "VIKINGYFY/luci-app-advancedplus" "main"
-UPDATE_PACKAGE "gecoosac" "lwb1978/openwrt-gecoosac" "main"
+#UPDATE_PACKAGE "advancedplus" "VIKINGYFY/luci-app-advancedplus" "main"
+#UPDATE_PACKAGE "gecoosac" "lwb1978/openwrt-gecoosac" "main"
+
+#MosDNS(sbwml)
+#find ../feeds/ | grep Makefile | grep mosdns | xargs rm -f
+#find ../feeds/ | grep Makefile | grep v2dat | xargs rm -f
+#find ../feeds/ | grep Makefile | grep v2ray-geodata | xargs rm -f
+#git clone --depth=1 --single-branch --branch "v5" https://github.com/sbwml/luci-app-mosdns.git
+#git clone --depth=1 --single-branch https://github.com/sbwml/v2ray-geodata.git
+UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5"
+UPDATE_PACKAGE "v2ray-geodata" "sbwml/v2ray-geodata" "master"
+
+#SmartDNS
+UPDATE_PACKAGE "smartdns" "pymumu/openwrt-smartdns" "master"
+UPDATE_PACKAGE "luci-app-smartdns" "pymumu/luci-app-smartdns" "lede"
+#git clone --depth=1 --single-branch --branch "lede" https://github.com/pymumu/luci-app-smartdns.git
+#git clone --depth=1 --single-branch https://github.com/pymumu/openwrt-smartdns
+
+#Netdata
+UPDATE_PACKAGE "luci-app-netdata" "Jason6111/luci-app-netdata" "main"
+#git clone --depth=1 --single-branch https://github.com/Jason6111/luci-app-netdata
+
+#Poweroff
+#UPDATE_PACKAGE "luci-app-poweroff" "esirplayground/luci-app-poweroff" "master"
+#git clone --depth=1 --single-branch https://github.com/esirplayground/luci-app-poweroff
+
+#OpenAppFilter
+UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master"
+#git clone --depth=1 --single-branch https://github.com/destan19/OpenAppFilter
+
+#Fileassistant
+UPDATE_PACKAGE "luci-app-fileassistant" "kenzok78/luci-app-fileassistant" "main"
+#git clone --depth=1 --single-branch https://github.com/kenzok78/luci-app-fileassistant
 
 if [[ $WRT_REPO != *"lede"* ]]; then
 	UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
