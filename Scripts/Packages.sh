@@ -66,6 +66,7 @@ UPDATE_PACKAGE "luci-app-fileassistant" "kenzok78/luci-app-fileassistant" "main"
 #git clone --depth=1 --single-branch https://github.com/kenzok78/luci-app-fileassistant
 
 if [[ $WRT_REPO != *"lede"* ]]; then
+	UPDATE_PACKAGE "daed" "QiuSimons/luci-app-daed" "master"
 	UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 	UPDATE_PACKAGE "mihomo" "morytyann/OpenWrt-mihomo" "main" "pkg"
 fi
