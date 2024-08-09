@@ -8,7 +8,7 @@ UPDATE_PACKAGE() {
 	local PKG_SPECIAL=$4
 	local REPO_NAME=$(echo $PKG_REPO | cut -d '/' -f 2)
 
-	rm -rf $(find ../feeds/luci/ ../feeds/packages/ -maxdepth 3 -type d -iname "*$PKG_NAME*" -prune)
+	rm -rf $(find ../feeds/ -maxdepth 3 -type d -iname "*$PKG_NAME*" -prune)
 
 	git clone --depth=1 --single-branch --branch $PKG_BRANCH "https://github.com/$PKG_REPO.git"
 
@@ -58,11 +58,11 @@ UPDATE_PACKAGE "luci-app-netdata" "Jason6111/luci-app-netdata" "main"
 #git clone --depth=1 --single-branch https://github.com/esirplayground/luci-app-poweroff
 
 #OpenAppFilter
-UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master"
+#UPDATE_PACKAGE "OpenAppFilter" "destan19/OpenAppFilter" "master"
 #git clone --depth=1 --single-branch https://github.com/destan19/OpenAppFilter
 
 #Fileassistant
-UPDATE_PACKAGE "luci-app-fileassistant" "kenzok78/luci-app-fileassistant" "main"
+#UPDATE_PACKAGE "luci-app-fileassistant" "kenzok78/luci-app-fileassistant" "main"
 #git clone --depth=1 --single-branch https://github.com/kenzok78/luci-app-fileassistant
 
 if [[ $WRT_REPO != *"lede"* ]]; then
