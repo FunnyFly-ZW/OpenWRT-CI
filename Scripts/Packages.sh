@@ -44,7 +44,7 @@ UPDATE_PACKAGE "ssr-plus" "fw876/helloworld" "master"
 #find ../feeds/ | grep Makefile | grep v2ray-geodata | xargs rm -f
 #git clone --depth=1 --single-branch --branch "v5" https://github.com/sbwml/luci-app-mosdns.git
 #git clone --depth=1 --single-branch https://github.com/sbwml/v2ray-geodata.git
-UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5"
+UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5-lua"
 UPDATE_PACKAGE "v2ray-geodata" "sbwml/v2ray-geodata" "master"
 
 #SmartDNS
