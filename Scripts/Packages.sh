@@ -34,9 +34,9 @@ UPDATE_PACKAGE "passwall-packages" "xiaorouji/openwrt-passwall-packages" "main"
 UPDATE_PACKAGE "ssr-plus" "fw876/helloworld" "master"
 
 #UPDATE_PACKAGE "advancedplus" "VIKINGYFY/luci-app-advancedplus" "main"
-UPDATE_PACKAGE "gecoosac" "lwb1978/openwrt-gecoosac" "main"
+#UPDATE_PACKAGE "gecoosac" "lwb1978/openwrt-gecoosac" "main"
 #UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
-#UPDATE_PACKAGE "luci-app-wolplus" "animegasan/luci-app-wolplus" "main"
+UPDATE_PACKAGE "luci-app-wolplus" "animegasan/luci-app-wolplus" "main"
 
 #MosDNS(sbwml)
 #find ../feeds/ | grep Makefile | grep mosdns | xargs rm -f
@@ -59,6 +59,7 @@ UPDATE_PACKAGE "luci-app-netdata" "Jason6111/luci-app-netdata" "main"
 
 #Poweroff
 #UPDATE_PACKAGE "luci-app-poweroff" "esirplayground/luci-app-poweroff" "master"
+UPDATE_PACKAGE "luci-app-poweroff" "DongyangHu/luci-app-poweroff" "main"
 #git clone --depth=1 --single-branch https://github.com/esirplayground/luci-app-poweroff
 
 #OpenAppFilter
@@ -66,14 +67,13 @@ UPDATE_PACKAGE "luci-app-netdata" "Jason6111/luci-app-netdata" "main"
 #git clone --depth=1 --single-branch https://github.com/destan19/OpenAppFilter
 
 #Fileassistant
-#UPDATE_PACKAGE "luci-app-fileassistant" "kenzok78/luci-app-fileassistant" "main"
+UPDATE_PACKAGE "luci-app-fileassistant" "kenzok78/luci-app-fileassistant" "main"
 #git clone --depth=1 --single-branch https://github.com/kenzok78/luci-app-fileassistant
 
 if [[ $WRT_REPO != *"lede"* ]]; then
 	UPDATE_PACKAGE "daed" "QiuSimons/luci-app-daed" "master"
 	UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 	UPDATE_PACKAGE "mihomo" "morytyann/OpenWrt-mihomo" "main" "pkg"
-
 	UPDATE_PACKAGE "alpha" "derisamedia/luci-theme-alpha" "master"
 	UPDATE_PACKAGE "alpha-config" "animegasan/luci-app-alpha-config" "master"
 fi
@@ -118,4 +118,4 @@ UPDATE_VERSION() {
 }
 
 #UPDATE_VERSION "软件包名" "测试版，true，可选，默认为否"
-UPDATE_VERSION "sing-box" "true"
+UPDATE_VERSION "sing-box"
