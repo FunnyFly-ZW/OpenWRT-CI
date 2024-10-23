@@ -36,6 +36,25 @@ UPDATE_PACKAGE "luci-app-gecoosac" "lwb1978/openwrt-gecoosac" "main"
 UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 UPDATE_PACKAGE "luci-app-wolplus" "VIKINGYFY/luci-app-wolplus" "main"
 
+#MosDNS(sbwml)
+find ./ | grep Makefile | grep mosdns | xargs rm -f
+find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+
+#SmartDNS
+UPDATE_PACKAGE "smartdns" "pymumu/openwrt-smartdns" "master"
+UPDATE_PACKAGE "luci-app-smartdns" "pymumu/luci-app-smartdns" "master"
+
+#Netdata
+UPDATE_PACKAGE "luci-app-netdata" "Jason6111/luci-app-netdata" "main"
+
+#Poweroff
+UPDATE_PACKAGE "luci-app-poweroff" "esirplayground/luci-app-poweroff" "master"
+
+#luci-app-wizard
+git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
+
 if [[ $WRT_REPO != *"immortalwrt"* ]]; then
 	UPDATE_PACKAGE "qmi-wwan" "immortalwrt/wwan-packages" "master" "pkg"
 fi
@@ -75,4 +94,4 @@ UPDATE_VERSION() {
 }
 
 #UPDATE_VERSION "软件包名" "测试版，true，可选，默认为否"
-UPDATE_VERSION "sing-box" "true"
+UPDATE_VERSION "sing-box" "false"

@@ -17,6 +17,9 @@ sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
 #修改默认时区
 sed -i "s/timezone='.*'/timezone='Asia\/Shanghai'/g" $CFG_FILE
 
+#修改重启菜单位置
+sed -i 's/\(entry({"admin", "system", "reboot".*\), 90)/\1, 98)/' feeds/luci/modules/luci-mod-admin-full/luasrc/controller/admin/system.lua
+
 #配置文件修改
 echo "CONFIG_PACKAGE_luci=y" >> ./.config
 echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
