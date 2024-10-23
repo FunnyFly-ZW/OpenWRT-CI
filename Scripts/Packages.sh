@@ -28,7 +28,7 @@ UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 UPDATE_PACKAGE "mihomo" "morytyann/OpenWrt-mihomo" "main"
 UPDATE_PACKAGE "nekoclash" "Thaolga/luci-app-nekoclash" "main"
 UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
-UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main" "pkg"
+UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "luci-smartdns-dev" "pkg"
 UPDATE_PACKAGE "ssr-plus" "fw876/helloworld" "master"
 
 UPDATE_PACKAGE "luci-app-advancedplus" "VIKINGYFY/luci-app-advancedplus" "main"
@@ -43,8 +43,8 @@ git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 
 #SmartDNS
-UPDATE_PACKAGE "smartdns" "pymumu/openwrt-smartdns" "master"
-UPDATE_PACKAGE "luci-app-smartdns" "pymumu/luci-app-smartdns" "master"
+#UPDATE_PACKAGE "smartdns" "pymumu/openwrt-smartdns" "master"
+#UPDATE_PACKAGE "luci-app-smartdns" "pymumu/luci-app-smartdns" "master"
 
 #Netdata
 UPDATE_PACKAGE "luci-app-netdata" "Jason6111/luci-app-netdata" "main"
