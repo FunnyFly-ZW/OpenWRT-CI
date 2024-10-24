@@ -7,17 +7,17 @@ on:
   workflow_dispatch:
     inputs:
       TARGET:
-        default: 'MEDIATEK'
+        default: 'X86'
         required: true
         type: choice
         options: [MEDIATEK, ROCKCHIP, X86, IPQ60XX-WIFI-YES, IPQ60XX-WIFI-NO, IPQ807X-WIFI-YES, IPQ807X-WIFI-NO]
       SOURCE:
-        default: 'VIKINGYFY/immortalwrt'
+        default: 'immortalwrt/immortalwrt'
         required: true
         type: choice
         options: [VIKINGYFY/immortalwrt, immortalwrt/immortalwrt, breeze303/openwrt-ipq, qosmio/openwrt-ipq]
       BRANCH:
-        default: 'main'
+        default: 'master'
         required: true
         type: string
       PACKAGE:
