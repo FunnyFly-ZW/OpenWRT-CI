@@ -14,8 +14,6 @@ CFG_FILE="./package/base-files/files/bin/config_generate"
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $CFG_FILE
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
-#修改默认时区
-sed -i "s/timezone='.*'/timezone='Asia\/Shanghai'/g" $CFG_FILE
 
 #修改重启菜单位置
 #sed -i 's/\(entry({"admin", "system", "reboot".*\), 90)/\1, 98)/' feeds/luci/modules/luci-mod-admin-full/luasrc/controller/admin/system.lua
