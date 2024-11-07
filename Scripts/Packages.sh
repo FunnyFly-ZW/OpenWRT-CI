@@ -31,14 +31,17 @@ UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main" "pkg"
 UPDATE_PACKAGE "ssr-plus" "fw876/helloworld" "master"
 
+UPDATE_PACKAGE "alist" "sbwml/luci-app-alist" "main"
+UPDATE_PACKAGE "diskman" "lisaac/luci-app-diskman" "master"
+UPDATE_PACKAGE "dockerman" "lisaac/luci-app-dockerman" "master"
+UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5"
+
 UPDATE_PACKAGE "luci-app-advancedplus" "VIKINGYFY/packages" "main" "pkg"
+UPDATE_PACKAGE "luci-app-easytier" "lazyoop/networking-artifact" "main" "pkg"
 UPDATE_PACKAGE "luci-app-gecoosac" "lwb1978/openwrt-gecoosac" "main"
 UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
+UPDATE_PACKAGE "luci-app-vnt" "lazyoop/networking-artifact" "main" "pkg"
 UPDATE_PACKAGE "luci-app-wolplus" "VIKINGYFY/packages" "main" "pkg"
-UPDATE_PACKAGE "alist" "sbwml/luci-app-alist" "main"
-UPDATE_PACKAGE "easytier" "lazyoop/networking-artifact" "main" "pkg"
-UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "main"
-UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 
 if [[ $WRT_REPO != *"immortalwrt"* ]]; then
 	UPDATE_PACKAGE "qmi-wwan" "immortalwrt/wwan-packages" "master" "pkg"
@@ -79,4 +82,4 @@ UPDATE_VERSION() {
 }
 
 #UPDATE_VERSION "软件包名" "测试版，true，可选，默认为否"
-UPDATE_VERSION "sing-box" "true"
+UPDATE_VERSION "sing-box"
