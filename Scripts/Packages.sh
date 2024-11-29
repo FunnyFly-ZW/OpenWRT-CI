@@ -25,7 +25,7 @@ UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "master"
 UPDATE_PACKAGE "kucat" "sirpdboy/luci-theme-kucat" "js"
 
 UPDATE_PACKAGE "alist" "sbwml/luci-app-alist" "main"
-#UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5"
+UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5"
 UPDATE_PACKAGE "vnt" "lazyoop/networking-artifact" "main" "pkg"
 UPDATE_PACKAGE "easytier" "lazyoop/networking-artifact" "main" "pkg"
 
@@ -52,13 +52,13 @@ UPDATE_PACKAGE "ssr-plus" "fw876/helloworld" "master"
 #UPDATE_PACKAGE "luci-app-smartdns" "pymumu/luci-app-smartdns" "master"
 
 #Netdata
-UPDATE_PACKAGE "luci-app-netdata" "Jason6111/luci-app-netdata" "main"
+#UPDATE_PACKAGE "luci-app-netdata" "Jason6111/luci-app-netdata" "main"
 
 #Poweroff
-UPDATE_PACKAGE "luci-app-poweroff" "esirplayground/luci-app-poweroff" "master"
+#UPDATE_PACKAGE "luci-app-poweroff" "esirplayground/luci-app-poweroff" "master"
 
 #luci-app-wizard
-git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
+#git clone https://github.com/sirpdboy/luci-app-wizard package/luci-app-wizard
 
 if [[ $WRT_REPO != *"immortalwrt"* ]]; then
 	UPDATE_PACKAGE "qmi-wwan" "immortalwrt/wwan-packages" "master" "pkg"
