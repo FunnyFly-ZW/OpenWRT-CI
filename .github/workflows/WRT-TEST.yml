@@ -31,7 +31,7 @@ on:
           - LiBwrt/openwrt-6.x
           - qosmio/openwrt-ipq
       BRANCH:
-        default: 'master'
+        default: 'openwrt-24.10'
         required: true
         type: string
       PACKAGE:
