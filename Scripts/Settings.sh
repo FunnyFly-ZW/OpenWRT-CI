@@ -49,7 +49,7 @@ if [ -n "$WRT_PACKAGE" ]; then
 fi
 
 #高通平台调整
-DTS_PATH="./target/linux/qualcommax/files/arch/arm64/boot/dts/qcom/"
+DTS_PATH="./target/linux/qualcommax/dts/"
 if [[ "${WRT_TARGET^^}" == *"QUALCOMMAX"* ]]; then
 	#取消nss相关feed
 	echo "CONFIG_FEED_nss_packages=n" >> ./.config
@@ -66,6 +66,7 @@ if [[ "${WRT_TARGET^^}" == *"QUALCOMMAX"* ]]; then
 	fi
 	#无WIFI配置调整Q6大小
 	if [[ "${WRT_CONFIG,,}" == *"wifi"* && "${WRT_CONFIG,,}" == *"no"* ]]; then
+		echo "WRT_WIFI=wifi-no" >> $GITHUB_ENV
 		find $DTS_PATH -type f ! -iname '*nowifi*' -exec sed -i 's/ipq\(6018\|8074\).dtsi/ipq\1-nowifi.dtsi/g' {} +
 		echo "qualcommax set up nowifi successfully!"
 	fi
