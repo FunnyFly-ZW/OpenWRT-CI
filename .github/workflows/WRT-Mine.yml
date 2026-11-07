@@ -27,6 +27,7 @@ on:
           - ROCKCHIP
           - X86
           - X86-Mine
+          - ROCKCHIP-Mine
           - TEST
       SOURCE:
         default: 'immortalwrt/immortalwrt'

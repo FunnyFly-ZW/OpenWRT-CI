@@ -186,6 +186,15 @@ jobs:
 
           if [[ "${WRT_CONFIG,,}" == *"test"* ]]; then
             cat $GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt >> .config
+          elif [[ "${WRT_CONFIG,,}" == *"mine"* ]]; then
+            MINE_CONFIG="$GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt"
+            if [[ ! -f "$MINE_CONFIG" ]]; then
+              echo "Mine config not found: $MINE_CONFIG" >&2
+              exit 1
+            fi
+            cat "$GITHUB_WORKSPACE/Config/GENERAL.txt" \
+                "$GITHUB_WORKSPACE/Config/GENERAL-Mine.txt" \
+                "$MINE_CONFIG" >> .config
           else
             cat $GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt $GITHUB_WORKSPACE/Config/GENERAL.txt >> .config
           fi
