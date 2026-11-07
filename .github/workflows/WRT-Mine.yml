@@ -1,0 +1,84 @@
+# SPDX-License-Identifier: MIT
+# 本地自定义构建：保留 fork 的默认参数，仅手动触发
+
+#CI项目
+name: WRT-Mine
+
+#CI计划
+on:
+  #手动编译
+  workflow_dispatch:
+    inputs:
+      CONFIG:
+        default: 'X86'
+        required: true
+        type: choice
+        options:
+          - AIROHA-AN7581
+          - AIROHA-AN7583
+          - IPQ53XX
+          - IPQ60XX-WIFI-NO
+          - IPQ60XX-WIFI-YES
+          - IPQ807X-WIFI-NO
+          - IPQ807X-WIFI-YES
+          - IPQ95XX
+          - MEDIATEK-WIFI-NO
+          - MEDIATEK-WIFI-YES
+          - ROCKCHIP
+          - X86
+          - TEST
+      SOURCE:
+        default: 'immortalwrt/immortalwrt'
+        required: true
+        type: choice
+        options:
+          - immortalwrt/immortalwrt
+          - VIKINGYFY/immortalwrt
+      BRANCH:
+        default: 'openwrt-25.12'
+        required: true
+        type: string
+      PACKAGE:
+        description: '手动调整插件包，多个请用\n符号隔开。'
+        required: false
+        type: string
+      TEST:
+        description: '仅输出配置文件，不编译固件。'
+        default: false
+        required: true
+        type: boolean
+
+#CI权限
+permissions: write-all
+
+#CI任务
+jobs:
+  config:
+    name: ${{inputs.CONFIG}}
+    #调用公用编译核心WRT-CORE.yml
+    uses: ./.github/workflows/WRT-CORE.yml
+    with:
+      #编译配置
+      WRT_CONFIG: ${{inputs.CONFIG}}
+      #默认主题
+      WRT_THEME: aurora
+      #默认主机名
+      WRT_NAME: OpenWrt
+      #默认WIFI名称
+      WRT_SSID: OpenWrt
+      #默认WIFI密码
+      WRT_WORD: 12345678
+      #默认地址
+      WRT_IP: 10.0.0.77
+      #默认密码，仅作提示，修改无用
+      WRT_PW: 无
+      #源码链接
+      WRT_REPO: https://github.com/${{inputs.SOURCE}}.git
+      #源码分支
+      WRT_BRANCH: ${{inputs.BRANCH}}
+      #源码名称
+      WRT_SOURCE: ${{inputs.SOURCE}}
+      #插件调整
+      WRT_PACKAGE: ${{inputs.PACKAGE}}
+      #仅输出配置文件
+      WRT_TEST: ${{inputs.TEST || false}}
