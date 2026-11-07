@@ -29,6 +29,15 @@ UPDATE_PACKAGE() {
 		else
 			echo "Not fonud directory: $NAME"
 		fi
+
+		# 清理 feeds install 创建的同名符号链接，避免源目录删除后留下悬空链接
+		local FEED_LINKS=$(find ./package/feeds -maxdepth 3 -iname "*$NAME*" 2>/dev/null)
+		if [ -n "$FEED_LINKS" ]; then
+			while read -r LINK; do
+				rm -rf "$LINK"
+				echo "Delete feed link: $LINK"
+			done <<< "$FEED_LINKS"
+		fi
 	done
 
 	# 克隆 GitHub 仓库
@@ -67,9 +76,8 @@ UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
 UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
 UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "axonhub gecoosac miniupnpd sing-box luci-app-homeproxy luci-app-timewol luci-app-upnp luci-app-wolplus luci-app-wolultra"
 
-#rtp2httpd：使用上游 stable 源码，并清理 feed 中同名包残留的符号链接
+#rtp2httpd：使用上游 stable 源码
 UPDATE_PACKAGE "rtp2httpd" "stackia/rtp2httpd" "stable" "" "rtp2httpd luci-app-rtp2httpd"
-find ./package/feeds -maxdepth 4 -iname '*rtp2httpd*' -prune -exec rm -rf {} + 2>/dev/null || true
 
 #UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5" "" "v2dat"
 UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
