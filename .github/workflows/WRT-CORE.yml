@@ -100,8 +100,17 @@ jobs:
       - name: Initialization Values
         id: initialize-values
         run: |
-          WRT_TARGET=$(grep -m 1 -oP '^CONFIG_TARGET_\K[^=_]+(?=\=y)' "./Config/$WRT_CONFIG.txt")
-          WRT_SUBTARGET=$(grep -m 1 -oP "^CONFIG_TARGET_${WRT_TARGET}_\K[^=_]+(?=\=y)" "./Config/$WRT_CONFIG.txt")
+          WRT_CONFIG_FILE="./Config/$WRT_CONFIG.txt"
+          if [[ "${WRT_CONFIG,,}" == *"mine"* ]]; then
+            WRT_CONFIG_FILE="./Config/${WRT_CONFIG%-[Mm][Ii][Nn][Ee]}.txt"
+          fi
+          if [[ ! -f "$WRT_CONFIG_FILE" ]]; then
+            echo "Config not found: $WRT_CONFIG_FILE" >&2
+            exit 1
+          fi
+
+          WRT_TARGET=$(grep -m 1 -oP '^CONFIG_TARGET_\K[^=_]+(?=\=y)' "$WRT_CONFIG_FILE")
+          WRT_SUBTARGET=$(grep -m 1 -oP "^CONFIG_TARGET_${WRT_TARGET}_\K[^=_]+(?=\=y)" "$WRT_CONFIG_FILE")
           WRT_CACHE_SOURCE=${WRT_SOURCE//\//-}
           WRT_CACHE_BRANCH=${WRT_BRANCH//\//-}
           WRT_CACHE_TARGET="$WRT_TARGET-$WRT_SUBTARGET"
@@ -187,14 +196,20 @@ jobs:
           if [[ "${WRT_CONFIG,,}" == *"test"* ]]; then
             cat $GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt >> .config
           elif [[ "${WRT_CONFIG,,}" == *"mine"* ]]; then
-            MINE_CONFIG="$GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt"
-            if [[ ! -f "$MINE_CONFIG" ]]; then
-              echo "Mine config not found: $MINE_CONFIG" >&2
+            TARGET_CONFIG="$GITHUB_WORKSPACE/Config/${WRT_CONFIG%-[Mm][Ii][Nn][Ee]}.txt"
+            TARGET_MINE_CONFIG="$GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt"
+            if [[ ! -f "$TARGET_CONFIG" ]]; then
+              echo "Target config not found: $TARGET_CONFIG" >&2
+              exit 1
+            fi
+            if [[ ! -f "$TARGET_MINE_CONFIG" ]]; then
+              echo "Target mine config not found: $TARGET_MINE_CONFIG" >&2
               exit 1
             fi
             cat "$GITHUB_WORKSPACE/Config/GENERAL.txt" \
                 "$GITHUB_WORKSPACE/Config/GENERAL-Mine.txt" \
-                "$MINE_CONFIG" >> .config
+                "$TARGET_CONFIG" \
+                "$TARGET_MINE_CONFIG" >> .config
           else
             cat $GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt $GITHUB_WORKSPACE/Config/GENERAL.txt >> .config
           fi
