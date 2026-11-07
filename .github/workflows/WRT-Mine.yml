@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       CONFIG:
-        default: 'X86'
+        default: 'X86-Mine'
         required: true
         type: choice
         options:
@@ -26,6 +26,7 @@ on:
           - MEDIATEK-WIFI-YES
           - ROCKCHIP
           - X86
+          - X86-Mine
           - TEST
       SOURCE:
         default: 'immortalwrt/immortalwrt'
