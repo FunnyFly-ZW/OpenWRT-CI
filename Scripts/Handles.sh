@@ -22,6 +22,58 @@ FIX() {
 	fi
 }
 
+#设置菜单排序：SET_MENU_ORDER <名称> <menu.d文件> <菜单键> <排序值>
+SET_MENU_ORDER() {
+	local NAME=$1
+	local FILE=$2
+	local KEY=$3
+	local ORDER=$4
+
+	if [ ! -f "$FILE" ]; then
+		echo "$NAME not found: $FILE"
+		return 0
+	fi
+
+	if ! jq -e --arg KEY "$KEY" 'has($KEY)' "$FILE" >/dev/null 2>&1; then
+		echo "$NAME key not found: $KEY"
+		return 0
+	fi
+
+	if jq --arg KEY "$KEY" --argjson ORDER "$ORDER" '.[$KEY].order = $ORDER' "$FILE" > "$FILE.tmp"; then
+		mv -f "$FILE.tmp" "$FILE"
+		echo "$NAME order set to $ORDER"
+	else
+		rm -f "$FILE.tmp"
+		echo "$NAME order set failed; continuing!"
+	fi
+}
+
+#设置菜单标题：SET_MENU_TITLE <名称> <menu.d文件> <菜单键> <标题>
+SET_MENU_TITLE() {
+	local NAME=$1
+	local FILE=$2
+	local KEY=$3
+	local TITLE=$4
+
+	if [ ! -f "$FILE" ]; then
+		echo "$NAME not found: $FILE"
+		return 0
+	fi
+
+	if ! jq -e --arg KEY "$KEY" 'has($KEY)' "$FILE" >/dev/null 2>&1; then
+		echo "$NAME key not found: $KEY"
+		return 0
+	fi
+
+	if jq --arg KEY "$KEY" --arg TITLE "$TITLE" '.[$KEY].title = $TITLE' "$FILE" > "$FILE.tmp"; then
+		mv -f "$FILE.tmp" "$FILE"
+		echo "$NAME title set to $TITLE"
+	else
+		rm -f "$FILE.tmp"
+		echo "$NAME title set failed; continuing!"
+	fi
+}
+
 #fork: 使用 argon 默认配色，不应用字体和颜色修补
 
 #fork: 不修改 aurora 菜单式样
@@ -46,3 +98,29 @@ FIX "mini-diskmanager" "$PACKAGE_PATH/luci-app-mini-diskmanager" sed -i "s/servi
 #修改natmapt菜单位置
 FIX "natmapt" "$PACKAGE_PATH/luci-app-natmapt" sed -i "s/network/services/g" \
 	"$PACKAGE_PATH/luci-app-natmapt/root/usr/share/luci/menu.d/luci-app-natmap.json"
+
+#调整服务菜单顺序：Momo、Nikki 上移，NATMap 后移，rtp2httpd 前移
+SET_MENU_ORDER "momo-menu" "$PACKAGE_PATH/OpenWrt-momo/luci-app-momo/root/usr/share/luci/menu.d/luci-app-momo.json" \
+	"admin/services/momo" 61
+SET_MENU_ORDER "nikki-menu" "$PACKAGE_PATH/OpenWrt-nikki/luci-app-nikki/root/usr/share/luci/menu.d/luci-app-nikki.json" \
+	"admin/services/nikki" 62
+SET_MENU_ORDER "natmap-menu" "$PACKAGE_PATH/luci-app-natmapt/root/usr/share/luci/menu.d/luci-app-natmap.json" \
+	"admin/services/natmap" 63
+SET_MENU_ORDER "rtp2httpd-menu" "$PACKAGE_PATH/rtp2httpd/openwrt-support/luci-app-rtp2httpd/root/usr/share/luci/menu.d/luci-app-rtp2httpd.json" \
+	"admin/services/rtp2httpd" 64
+SET_MENU_ORDER "msd-lite-menu" "$FEEDS_PATH/luci/applications/luci-app-msd_lite/root/usr/share/luci/menu.d/luci-app-msd_lite.json" \
+	"admin/services/msd_lite" 65
+SET_MENU_ORDER "omcproxy-menu" "$FEEDS_PATH/luci/applications/luci-app-omcproxy/root/usr/share/luci/menu.d/luci-app-omcproxy.json" \
+	"admin/services/omcproxy" 66
+SET_MENU_ORDER "upnp-menu" "$PACKAGE_PATH/packages/luci-app-upnp/root/usr/share/luci/menu.d/luci-app-upnp.json" \
+	"admin/services/upnp" 67
+
+#调整系统菜单顺序：主题入口后移，重启排在主题之后
+SET_MENU_ORDER "aurora-menu" "$PACKAGE_PATH/luci-app-aurora-config/root/usr/share/luci/menu.d/luci-app-aurora.json" \
+	"admin/system/aurora" 91
+SET_MENU_ORDER "footstrap-menu" "$PACKAGE_PATH/luci-theme-footstrap/luci-theme-footstrap/root/usr/share/luci/menu.d/luci-theme-footstrap.json" \
+	"admin/system/footstrap" 92
+SET_MENU_TITLE "footstrap-menu" "$PACKAGE_PATH/luci-theme-footstrap/luci-theme-footstrap/root/usr/share/luci/menu.d/luci-theme-footstrap.json" \
+	"admin/system/footstrap" "Footstrap 主题设置"
+SET_MENU_ORDER "reboot-menu" "$FEEDS_PATH/luci/modules/luci-mod-system/root/usr/share/luci/menu.d/luci-mod-system.json" \
+	"admin/system/reboot" 93
