@@ -2,6 +2,8 @@
 
 # 主题与界面
 CONFIG_PACKAGE_luci-app-vantage=y
+CONFIG_PACKAGE_luci-app-vantage-aps=y
+CONFIG_PACKAGE_luci-app-vantage-traffic=y
 CONFIG_PACKAGE_luci-theme-argon=y
 CONFIG_PACKAGE_luci-theme-aurora=y
 CONFIG_PACKAGE_luci-theme-bootstrap=y
